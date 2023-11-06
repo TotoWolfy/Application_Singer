@@ -108,12 +108,23 @@ fun Presentation(fullName: String, modifier: Modifier = Modifier) {
 @Composable
 fun Socials(windowClass: WindowSizeClass, modifier: Modifier = Modifier) {
     var fontSize = 0.sp;
-    fontSize = when (windowClass.widthSizeClass) {
+    var iconSize = 0.dp;
+    var spacerHeight = 0.dp;
+    var spacerWidth = 0.dp;
+
+    when (windowClass.widthSizeClass) {
         WindowWidthSizeClass.Compact -> {
-            16.sp
+            fontSize = 16.sp
+            iconSize = 20.dp
+            spacerHeight = 10.dp
+            spacerWidth = 10.dp
         }
+
         else -> {
-            18.sp
+            fontSize = 18.sp
+            iconSize = 30.dp
+            spacerHeight = 20.dp
+            spacerWidth = 20.dp
         }
     }
     Row(
@@ -124,35 +135,35 @@ fun Socials(windowClass: WindowSizeClass, modifier: Modifier = Modifier) {
             Image(
                 painter = painterResource(R.drawable.e_mail),
                 contentDescription = "Logo email",
-                modifier = modifier.size(20.dp)
+                modifier = modifier.size(iconSize)
             )
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(spacerHeight))
             Image(
                 painter = painterResource(R.drawable.linkedin),
                 contentDescription = "Logo Linkedin",
-                modifier = modifier.size(20.dp)
+                modifier = modifier.size(iconSize)
             )
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(spacerHeight))
             Image(
                 painter = painterResource(R.drawable.github_logo),
                 contentDescription = "Logo Github",
-                modifier = modifier.size(20.dp)
+                modifier = modifier.size(iconSize)
             )
         }
-        Spacer(modifier = Modifier.width(10.dp))
+        Spacer(modifier = Modifier.width(spacerWidth))
         Column(horizontalAlignment = Alignment.Start) {
             Text(
                 text = "hombert.fabien@gmail.com",
                 fontSize = fontSize,
             )
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(spacerHeight))
             Text(
                 text = "https://www.linkedin.com/in/fabien-hombert",
                 fontSize = fontSize,
             )
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(spacerHeight))
             Text(
                 text = "https://github.com/Picoche",
                 fontSize = fontSize,
