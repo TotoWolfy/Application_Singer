@@ -1,40 +1,30 @@
 package com.example.appli_singer.pages.homepage
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
-import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.example.appli_singer.Destination
 
 
 import com.example.appli_singer.R
-import com.example.appli_singer.pages.homepage.components.Presentation
-import com.example.appli_singer.pages.homepage.components.Socials
-import com.example.appli_singer.pages.homepage.components.StartButton
+import com.example.appli_singer.pages.main_pages.films.Films
+import com.example.appli_singer.pages.main_pages.films.FilmsPages
 
 
 val unboundedFamily = FontFamily(
@@ -44,35 +34,37 @@ val unboundedFamily = FontFamily(
     Font(R.font.unbounded_bold, FontWeight.Bold)
 )
 
-
 @Composable
 fun HomePage(fullName: String, windowClass: WindowSizeClass) {
-    when (windowClass.widthSizeClass) {
-        WindowWidthSizeClass.Compact -> {
-            Box(contentAlignment = Alignment.Center) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Presentation(fullName)
-                    Spacer(modifier = Modifier.height(50.dp))
-                    Socials(windowClass)
-                    Spacer(modifier = Modifier.height(100.dp))
-                    StartButton(windowClass)
+    val navController = rememberNavController()
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+    val destinations = listOf(Destination.Profil, Destination.Films)
+    Scaffold(
+        bottomBar = {
+            if (currentDestination?.route != Destination.Profil.destination)
+            BottomNavigation() {
+                destinations.forEach { screen ->
+                    BottomNavigationItem(
+                        icon = { Icon(screen.icon, contentDescription = null) },
+                        label = { Text(screen.label) },
+                        selected =
+                        currentDestination?.hierarchy?.any { it.route == screen.destination } == true,
+                        onClick = { navController.navigate(screen.destination) })
                 }
             }
-        }
-
-        else -> {
-            Box(contentAlignment = Alignment.Center) {
-                Row() {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Presentation(fullName)
-                    }
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Socials(windowClass)
-                        Spacer(modifier = Modifier.height(100.dp))
-                        StartButton(windowClass)
-                    }
-                }
+        }) { innerPadding ->
+        NavHost(
+            navController, startDestination = Destination.Profil.destination,
+            Modifier.padding(innerPadding)
+        ) {
+            composable("profil") {
+                Profil(
+                    fullName,
+                    windowClass
+                ) { navController.navigate(Destination.Films.destination) }
             }
+            composable("films") { FilmsPages() }
         }
     }
 }

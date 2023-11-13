@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun StartButton(windowClass: WindowSizeClass) {
+fun StartButton(windowClass: WindowSizeClass, onClick: () -> Unit) {
     var fontSize = 0.sp;
     var buttonHeight = 0.dp;
     var buttonWidth = 0.dp;
@@ -39,7 +39,9 @@ fun StartButton(windowClass: WindowSizeClass) {
         }
     }
     Button(
-        onClick = { /*TODO*/ },
+        onClick = {
+            onClick()
+        },
         modifier = Modifier
             .height(buttonHeight)
             .width(buttonWidth)
