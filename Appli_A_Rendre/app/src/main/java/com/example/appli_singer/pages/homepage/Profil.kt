@@ -29,8 +29,6 @@ fun Profil(fullName: String, windowClass: WindowSizeClass, onClick: () -> Unit) 
                 Box(contentAlignment = Alignment.Center) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Presentation(fullName)
-                        Spacer(modifier = Modifier.height(50.dp))
-                        Socials(windowClass)
                         Spacer(modifier = Modifier.height(100.dp))
                         StartButton(windowClass, onClick)
                     }
@@ -44,7 +42,6 @@ fun Profil(fullName: String, windowClass: WindowSizeClass, onClick: () -> Unit) 
                             Presentation(fullName)
                         }
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Socials(windowClass)
                             Spacer(modifier = Modifier.height(100.dp))
                             StartButton(windowClass, onClick)
                         }

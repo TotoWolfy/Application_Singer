@@ -23,8 +23,8 @@ import com.example.appli_singer.pages.homepage.unboundedFamily
 @Composable
 fun Presentation(fullName: String, modifier: Modifier = Modifier) {
     Image(
-        painter = painterResource(id = R.drawable.fabien),
-        contentDescription = "Ma photo de profil",
+        painter = painterResource(id = R.drawable.logo_le_panier_dantan),
+        contentDescription = "Logo Panier d'Antan",
         modifier = modifier
             .size(150.dp)
             .border(BorderStroke(2.dp, Color.Black), CircleShape)
@@ -32,14 +32,14 @@ fun Presentation(fullName: String, modifier: Modifier = Modifier) {
     )
     Spacer(modifier = Modifier.height(15.dp))
     Text(
-        text = "$fullName",
+        text = fullName,
         fontSize = 32.sp,
         fontFamily = unboundedFamily,
         fontWeight = FontWeight.Bold,
     )
     Spacer(modifier = Modifier.height(20.dp))
     Text(
-        text = "Étudiant en 3ème année de BUT MMI \n" + "IUT Paul Sabatier - Castres",
+        text = "Démo de l'application \n 'Panier d'Antan'",
         textAlign = TextAlign.Center,
         fontSize = 17.sp,
         fontFamily = unboundedFamily,

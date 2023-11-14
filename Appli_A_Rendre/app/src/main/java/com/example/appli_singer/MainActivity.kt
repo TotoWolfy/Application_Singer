@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    HomePage("Fabien Hombert", windowSizeClass)
+                    HomePage("Premier Sprint", windowSizeClass)
                 }
             }
         }
